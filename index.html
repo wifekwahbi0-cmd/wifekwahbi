@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>عيادة تقويم النطق - إ. وفاق وهبي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'arabic': ['Cairo', 'sans-serif'],
+            },
+            colors: {
+              primary: '#2563eb',
+              secondary: '#7c3aed',
+              accent: '#06b6d4',
+              warm: '#f59e0b',
+              success: '#10b981',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body { font-family: 'Cairo', sans-serif; }
+      .hero-gradient { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); }
+      .card-hover { transition: all 0.3s ease; }
+      .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+      .fade-in { animation: fadeIn 0.6s ease-in; }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      .parallax { background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; }
+      .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+      .modal.show { display: flex; align-items: center; justify-content: center; }
+      .modal-content { background: white; padding: 2rem; border-radius: 1rem; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
+      .btn-primary { background: linear-gradient(135deg, #2563eb, #7c3aed); transition: all 0.3s ease; }
+      .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3); }
+      .service-icon { background: linear-gradient(135deg, #06b6d4, #2563eb); }
+      .appointment-form { background: linear-gradient(135deg, #f8fafc, #e2e8f0); }
+    </style>
+  </head>
+  <body class="bg-gray-50 font-arabic">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+        <div class="flex items-center space-x-3 space-x-reverse">
+          <div class="bg-gradient-to-r from-primary to-secondary w-12 h-12 rounded-lg flex items-center justify-center">
+            <i class="fas fa-clinic-medical text-white text-2xl"></i>
+          </div>
+          <div>
+            <h1 class="text-xl font-bold text-gray-800">عيادة تقويم النطق</h1>
+            <p class="text-gray-600 text-sm">إ. وفاق وهبي - إخصائية تقويم النطق</p>
+          </div>
+        </div>
+          </div>
+   <div class="hidden md:flex space-x-6 space-x-reverse">
+           <a href="#home" class="text-gray-700 hover:text-primary transition-colors">الرئيسية</a>
+           <a href="#services" class="text-gray-700 hover:text-primary transition-colors">الخدمات</a>
+           <a href="#about" class="text-gray-700 hover:text-primary transition-colors">عن الدكتورة</a>
+           <a href="#appointment" class="text-gray-700 hover:text-primary transition-colors">حجز موعد</a>
+           <a href="#contact" class="text-gray-700 hover:text-primary transition-colors">اتصل بنا</a>
+           <a href="https://wa.me/20524822" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-primary transition-colors flex items-center">
+             <i class="fab fa-whatsapp text-green-500 mr-1"></i>
+             <span>واتساب</span>
+           </a>
+         </div>
+         <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+           <i class="fas fa-bars text-xl"></i>
+         </button>
+        </div>
+   <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden pb-4">
+         <a href="#home" class="block py-2 text-gray-700 hover:text-primary">الرئيسية</a>
+         <a href="#services" class="block py-2 text-gray-700 hover:text-primary">الخدمات</a>
+         <a href="#about" class="block py-2 text-gray-700 hover:text-primary">عن الدكتورة</a>
+         <a href="#appointment" class="block py-2 text-gray-700 hover:text-primary">حجز موعد</a>
+         <a href="#contact" class="block py-2 text-gray-700 hover:text-primary">اتصل بنا</a>
+         <a href="https://wa.me/20524822" target="_blank" rel="noopener noreferrer" class="block py-2 text-gray-700 hover:text-primary flex items-center">
+           <i class="fab fa-whatsapp text-green-500 mr-1"></i>
+           <span>واتساب</span>
+         </a>
+       </div>
+      </div>
+    </nav>
+
+   <!-- Hero Section -->
+   <section id="home" class="hero-gradient text-white pt-20 pb-16 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+     <img src="https://res.cloudinary.com/dxz2qqnes/image/upload/v1755795358/instant-site/users/cmel7xc5203su6l7g5lerncc1/1755795357378-1000068704.jpg" 
+          alt="خلفية طبية" 
+          class="w-full h-full object-cover">
+    </div>
+     <div class="container mx-auto px-4 relative z-10">
+       <div class="text-center fade-in">
+     <h1 class="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+       عيادة تقويم النطق
+     </h1>
+    <p class="text-xl md:text-2xl mb-8 drop-shadow-md">
+      إ. وفاق وهبي - إخصائية تقويم النطق المعتمدة
+    </p>
+        <p class="text-lg mb-8 max-w-2xl mx-auto drop-shadow-sm">
+         نقدم أفضل خدمات تقويم النطق للأطفال والبالغين بأحدث الطرق العلمية والتقنيات المتطورة
+        </p>
+         <div class="flex flex-col sm:flex-row gap-4 justify-center">
+           <button onclick="showAppointmentModal()" class="btn-primary text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all">
+             <i class="fas fa-calendar-plus ml-2"></i>
+             احجز موعدك الآن
+           </button>
+           <a href="#services" class="bg-white text-primary px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:bg-gray-100 transition-all hover:shadow-xl">
+             <i class="fas fa-info-circle ml-2"></i>
+             تعرف على خدماتنا
+           </a>
+         </div>
+       </div>
+     </div>
+   </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12 fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">خدماتنا المتخصصة</h2>
+        <p class="text-lg mb-8 max-w-2xl mx-auto opacity-80">
+          نقدم أفضل خدمات تقويم النطق المتخصصة لجميع الأعمار
+        </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service 1 -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
+            <div class="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <i class="fas fa-child text-white text-2xl"></i>
+            </div>
+           <h3 class="text-xl font-bold text-center mb-3">علاج تأخر النطق عند الأطفال</h3>
+           <p class="text-gray-600 text-center mb-4">
+             برامج متخصصة لتقويم تأخر النطق واللغة عند الأطفال من سن مبكرة
+           </p>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li><i class="fas fa-check text-success ml-2"></i>تقييم شامل للحالة</li>
+              <li><i class="fas fa-check text-success ml-2"></i>خطة علاجية مخصصة</li>
+              <li><i class="fas fa-check text-success ml-2"></i>متابعة دورية للتقدم</li>
+            </ul>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
+            <div class="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <i class="fas fa-volume-up text-white text-2xl"></i>
+            </div>
+           <h3 class="text-xl font-bold text-center mb-3">تقويم اضطرابات النطق</h3>
+           <p class="text-gray-600 text-center mb-4">
+             تقويم مشاكل النطق مثل اللثغة وصعوبة نطق الأصوات
+           </p>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li><i class="fas fa-check text-success ml-2"></i>تصحيح مخارج الأصوات</li>
+              <li><i class="fas fa-check text-success ml-2"></i>تمارين النطق المتخصصة</li>
+              <li><i class="fas fa-check text-success ml-2"></i>تحسين وضوح الكلام</li>
+            </ul>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
+            <div class="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <i class="fas fa-brain text-white text-2xl"></i>
+            </div>
+           <h3 class="text-xl font-bold text-center mb-3">تقويم اضطرابات اللغة</h3>
+           <p class="text-gray-600 text-center mb-4">
+             تطوير المهارات اللغوية والتواصلية للأطفال والبالغين
+           </p>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li><i class="fas fa-check text-success ml-2"></i>تنمية المفردات</li>
+              <li><i class="fas fa-check text-success ml-2"></i>تحسين التركيب النحوي</li>
+              <li><i class="fas fa-check text-success ml-2"></i>تطوير الفهم اللغوي</li>
+            </ul>
+          </div>
+
+          <!-- Service 4 -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
+            <div class="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <i class="fas fa-utensils text-white text-2xl"></i>
+            </div>
+           <h3 class="text-xl font-bold text-center mb-3">تقويم اضطرابات البلع</h3>
+           <p class="text-gray-600 text-center mb-4">
+             تقويم صعوبات البلع والمضغ لجميع الأعمار
+           </p>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li><i class="fas fa-check text-success ml-2"></i>تقييم وظائف البلع</li>
+              <li><i class="fas fa-check text-success ml-2"></i>تمارين عضلات الفم</li>
+              <li><i class="fas fa-check text-success ml-2"></i>برامج التأهيل الغذائي</li>
+            </ul>
+          </div>
+
+          <!-- Service 5 -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
+            <div class="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <i class="fas fa-deaf text-white text-2xl"></i>
+            </div>
+           <h3 class="text-xl font-bold text-center mb-3">تأهيل ضعاف السمع</h3>
+           <p class="text-gray-600 text-center mb-4">
+             برامج تأهيل متخصصة للأفراد الذين يعانون من ضعف السمع لتحسين التواصل
+           </p>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li><i class="fas fa-check text-success ml-2"></i>تدريب على استخدام المعينات السمعية</li>
+              <li><i class="fas fa-check text-success ml-2"></i>تطوير مهارات الاستماع</li>
+              <li><i class="fas fa-check text-success ml-2"></i>جلسات علاج النطق</li>
+            </ul>
+          </div>
+
+          <!-- Service 6 -->
+          <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
+            <div class="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+              <i class="fas fa-comments text-white text-2xl"></i>
+            </div>
+           <h3 class="text-xl font-bold text-center mb-3">تقويم التوحد واضطرابات التواصل</h3>
+           <p class="text-gray-600 text-center mb-4">
+             دعم شامل للأطفال المصابين بالتوحد لتحسين مهارات التواصل الاجتماعي واللغوي
+           </p>
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li><i class="fas fa-check text-success ml-2"></i>برامج تواصل بديلة</li>
+              <li><i class="fas fa-check text-success ml-2"></i>تدريب على المهارات الاجتماعية</li>
+              <li><i class="fas fa-check text-success ml-2"></i>دعم الأسر</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-100">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12 fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">عن الإخصائية</h2>
+          <p class="text-lg text-gray-600">تعرف على الإخصائية وفاق وهبي وخبرتها في مجال تقويم النطق</p>
+        </div>
+        
+        <div class="flex flex-col md:flex-row items-center gap-8">
+          <div class="md:w-1/3 fade-in">
+            <img src="https://res.cloudinary.com/dxz2qqnes/image/upload/v1755795358/instant-site/users/cmel7xc5203su6l7g5lerncc1/1755795357378-1000068704.jpg" alt="صورة الإخصائية وفاق وهبي" class="rounded-full shadow-lg w-64 h-64 object-cover mx-auto md:mx-0">
+          </div>
+          <div class="md:w-2/3 text-center md:text-right fade-in">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">إ. وفاق وهبي</h3>
+            <p class="text-gray-700 leading-relaxed mb-6">
+              إخصائية تقويم النطق المعتمدة، بخبرة تزيد عن 6 سنوات في تشخيص وعلاج اضطرابات النطق واللغة والبلع لدى الأطفال والبالغين. حاصلة على الإجازة في تقويم النطق من الجامعة المركزية بتونس. تلتزم بتقديم رعاية شاملة ومخصصة لكل مريض، مع التركيز على أحدث الأساليب العلاجية لضمان أفضل النتائج.
+            </p>
+            <div class="grid grid-cols-2 gap-4 text-gray-700">
+              <div>
+                <p class="font-semibold"><i class="fas fa-graduation-cap ml-2 text-primary"></i>المؤهلات العلمية:</p>
+                <ul class="list-disc list-inside text-sm mt-2">
+                  <li>الإجازة في تقويم النطق من الجامعة المركزية بتونس</li>
+                </ul>
+              </div>
+              <div>
+                <p class="font-semibold"><i class="fas fa-briefcase ml-2 text-primary"></i>سنوات الخبرة:</p>
+                <p class="text-sm mt-2">6 سنوات في مجال تقويم النطق</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12 fade-in">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">احجز موعدك</h2>
+          <p class="text-lg text-gray-600">املأ النموذج أدناه لحجز موعد استشارة أو علاج</p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto appointment-form rounded-2xl shadow-lg p-8 fade-in">
+          <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">نموذج حجز الموعد</h3>
+          <form id="appointmentForm" class="space-y-6">
+            <div>
+              <label class="block text-gray-700 font-semibold mb-2">الاسم الكامل</label>
+              <input type="text" id="fullName" required 
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label class="block text-gray-700 font-semibold mb-2">رقم الهاتف</label>
+              <input type="tel" id="phone" required 
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            
+            <div>
+              <label class="block text-gray-700 font-semibold mb-2">بريد إلكتروني (اختياري)</label>
+              <input type="email" id="email" 
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">التاريخ المفضل</label>
+                <input type="date" id="preferredDate" required 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">الوقت المفضل</label>
+                  <select id="preferredTime" required 
+                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <option value="">اختر الوقت</option>
+                    <option value="09:00">09:00 صباحاً</option>
+                    <option value="10:00">10:00 صباحاً</option>
+                    <option value="11:00">11:00 صباحاً</option>
+                    <option value="14:00">02:00 مساءً</option>
+                    <option value="15:00">03:00 مساءً</option>
+                    <option value="16:00">04:00 مساءً</option>
+                    <option value="17:00">05:00 مساءً</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">نوع الخدمة</label>
+                <select id="serviceType" required 
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                  <option value="">اختر نوع الخدمة</option>
+             <option value="speech-delay">تقويم تأخر النطق</option>
+             <option value="speech-disorders">تقويم اضطرابات النطق</option>
+             <option value="language-disorders">تقويم اضطرابات اللغة</option>
+             <option value="swallowing-disorders">تقويم اضطرابات البلع</option>
+             <option value="hearing-rehabilitation">تأهيل ضعاف السمع</option>
+             <option value="autism-communication">تقويم التوحد واضطرابات التواصل</option>
+             <option value="consultation">استشارة عامة</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">وصف الحالة (اختياري)</label>
+                <textarea id="caseDescription" rows="4" 
+                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                          placeholder="اكتب وصفاً مختصراً للحالة أو الأعراض"></textarea>
+              </div>
+              
+              <button type="submit" class="w-full btn-primary text-white py-4 rounded-lg font-semibold text-lg shadow-lg">
+                <i class="fas fa-paper-plane ml-2"></i>
+                إرسال طلب الحجز
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   <!-- Contact Section -->
+   <section id="contact" class="py-16 bg-gray-100">
+     <div class="container mx-auto px-4">
+       <div class="text-center mb-12 fade-in">
+         <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">تواصل معنا</h2>
+         <p class="text-lg text-gray-600">نحن هنا لمساعدتك والإجابة على جميع استفساراتك</p>
+       </div>
+        
+       <div class="grid md:grid-cols-2 gap-8 mb-12">
+         <!-- Contact Info -->
+         <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
+           <div class="text-center">
+             <div class="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+               <i class="fas fa-map-marker-alt text-white text-2xl"></i>
+             </div>
+             <h3 class="text-xl font-bold mb-3">العنوان</h3>
+             <p class="text-gray-600">
+               187 شارع حسين داي<br>
+               العقبة، تونس
+             </p>
+           </div>
+         </div>
+          
+         <div class="bg-white rounded-2xl shadow-lg p-6 card-hover fade-in">
+           <div class="text-center">
+             <div class="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+               <i class="fas fa-phone text-white text-2xl"></i>
+             </div>
+             <h3 class="text-xl font-bold mb-3">الهاتف</h3>
+             <p class="text-gray-600">
+               <a href="tel:+21620524822" class="hover:text-primary transition-colors">
+                 +216 20 524 822
+               </a>
+             </p>
+           </div>
+         </div>
+       </div>
+
+      <!-- Google Maps Location -->
+      <div class="bg-white rounded-2xl shadow-lg p-6 mb-12 fade-in">
+        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">موقع العيادة</h3>
+        <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3196.210234091643!2d10.08728081517944!3d36.78994107995401!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12fd3340fce6456d%3A0x7ae2d04308eef65b!2scabinet%20d%27orthophonie%20wifek%20wahbi%2C%20P5%2C%20Tunis!5e0!3m2!1sen!2stn!4v1623847948237!5m2!1sen!2stn" 
+          width="100%" 
+          height="450" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="موقع عيادة تقويم النطق - إ. وفاق وهبي">
+        </iframe>
+        </div>
+        <div class="mt-6 text-center">
+          <a href="https://maps.google.com/maps?daddr=35.373707,10.758035" target="_blank" 
+             class="btn-primary text-white px-6 py-3 rounded-full font-semibold inline-block shadow-lg">
+            <i class="fas fa-directions ml-2"></i>
+            احصل على الاتجاهات
+          </a>
+        </div>
+      </div>
+        
+       <!-- FAQ Section -->
+       <div class="mt-16">
+         <div class="text-center mb-12 fade-in">
+           <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">الأسئلة الشائعة</h3>
+         </div>
+          
+         <div class="max-w-3xl mx-auto space-y-4">
+           <div class="bg-white rounded-lg shadow-md fade-in">
+             <button class="w-full text-right p-6 font-semibold text-gray-800 hover:text-primary transition-colors" onclick="toggleFAQ(1)">
+               <span>ما هي مدة الجلسة العلاجية؟</span>
+               <i class="fas fa-chevron-down float-left mt-1"></i>
+             </button>
+            <div id="faq1" class="hidden px-6 pb-6 text-gray-600">
+              مدة الحصة العلاجية 45 دقيقة.
+            </div>
+           </div>
+            
+           <div class="bg-white rounded-lg shadow-md fade-in">
+             <button class="w-full text-right p-6 font-semibold text-gray-800 hover:text-primary transition-colors" onclick="toggleFAQ(2)">
+               <span>كم عدد الجلسات المطلوبة للعلاج؟</span>
+               <i class="fas fa-chevron-down float-left mt-1"></i>
+             </button>
+             <div id="faq2" class="hidden px-6 pb-6 text-gray-600">
+               يختلف عدد الجلسات حسب شدة الحالة وعمر المريض، وعادة ما يتراوح بين 10-30 جلسة، مع تقييم دوري للتقدم.
+             </div>
+           </div>
+            
+           <div class="bg-white rounded-lg shadow-md fade-in">
+             <button class="w-full text-right p-6 font-semibold text-gray-800 hover:text-primary transition-colors" onclick="toggleFAQ(3)">
+               <span>هل يمكن للأهل حضور الجلسات؟</span>
+               <i class="fas fa-chevron-down float-left mt-1"></i>
+             </button>
+            <div id="faq3" class="hidden px-6 pb-6 text-gray-600">
+              حضور الأهل وقت الحصة يقتصر على الجلوس في قاعة الأنتظار.
+            </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-8">
+          <div>
+        <div class="flex items-center space-x-4 space-x-reverse mb-6">
+          <div class="service-icon w-20 h-20 rounded-full flex items-center justify-center">
+            <i class="fas fa-clinic-medical text-white text-3xl"></i>
+          </div>
+            <div>
+              <h3 class="text-2xl font-bold">عيادة تقويم النطق</h3>
+              <p class="text-gray-400 mt-1">الإخصائية في تقويم النطق وفاق وهبي</p>
+            </div>
+         </div>
+            <p class="text-gray-400 mb-4">
+              نقدم أفضل خدمات العلاج النطقي بأحدث الطرق العلمية والتقنيات المتطورة
+            </p>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">روابط سريعة</h4>
+            <ul class="space-y-2">
+              <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">الرئيسية</a></li>
+              <li><a href="#services" class="text-gray-400 hover:text-white transition-colors">الخدمات</a></li>
+             <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">عن الإخصائية</a></li>
+              <li><a href="#appointment" class="text-gray-400 hover:text-white transition-colors">حجز موعد</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-semibold mb-4">معلومات التواصل</h4>
+            <div class="space-y-3">
+              <p class="text-gray-400">
+                <i class="fas fa-map-marker-alt ml-2"></i>
+                187 شارع حسين داي، العقبة، تونس
+              </p>
+              <p class="text-gray-400">
+                <i class="fas fa-phone ml-2"></i>
+                <a href="tel:20524822" class="hover:text-white transition-colors">20524822</a>
+              </p>
+              <p class="text-gray-400">
+                <i class="fas fa-envelope ml-2"></i>
+                <a href="mailto:wifekwahbi@fmail.com" class="hover:text-white transition-colors">wifekwahbi@fmail.com</a>
+              </p>
+            </div>
+         </div>
+       </div>
+        
+       <!-- Social Media Links -->
+       <div class="border-t border-gray-700 mt-8 pt-8">
+         <div class="flex flex-col md:flex-row justify-between items-center">
+          <p class="text-gray-400 mb-4 md:mb-0">
+            &copy; <span data-year></span> عيادة تقويم النطق - إ. وفاق وهبي. جميع الحقوق محفوظة.
+          </p>
+          <div class="flex space-x-4">
+           <a href="https://www.facebook.com/wifekwahbi" target="_blank" rel="noopener noreferrer" 
+               class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center hover:bg-blue-700 transition-colors">
+              <i class="fab fa-facebook-f text-white"></i>
+            </a>
+           <a href="https://www.instagram.com/wifekwahbi" target="_blank" rel="noopener noreferrer"
+               class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center hover:opacity-90 transition-opacity">
+              <i class="fab fa-instagram text-white"></i>
+            </a>
+            <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" 
+               class="w-10 h-10 rounded-full bg-black flex items-center justify-center hover:bg-gray-800 transition-colors">
+              <i class="fab fa-tiktok text-white"></i>
+            </a>
+            <a href="https://wa.me/20524822" target="_blank" rel="noopener noreferrer" 
+               class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center hover:bg-green-600 transition-colors">
+              <i class="fab fa-whatsapp text-white"></i>
+            </a>
+          </div>
+        </div>
+       </div>
+      </div>
+    </footer>
+
+    <!-- Appointment Modal -->
+    <div id="appointmentModal" class="modal">
+      <div class="modal-content">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-bold text-gray-800">حجز موعد</h3>
+          <button onclick="closeModal('appointmentModal')" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        
+        <form id="modalAppointmentForm" class="space-y-4">
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">الاسم الكامل</label>
+            <input type="text" id="modalFullName" required 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+          </div>
+          
+             <div>
+               <label class="block text-gray-700 font-semibold mb-2">رقم الهاتف</label>
+               <input type="tel" id="modalPhone" required 
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+             </div>
+             <div>
+               <label class="block text-gray-700 font-semibold mb-2">بريد إلكتروني (اختياري)</label>
+               <input type="email" id="modalEmail" 
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+             </div>
+          
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">نوع الخدمة</label>
+            <select id="modalServiceType" required 
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+              <option value="">اختر نوع الخدمة</option>
+             <option value="speech-delay">تقويم تأخر النطق</option>
+             <option value="speech-disorders">تقويم اضطرابات النطق</option>
+             <option value="language-disorders">تقويم اضطرابات اللغة</option>
+             <option value="consultation">استشارة عامة</option>
+            </select>
+          </div>
+          
+          <button type="submit" class="w-full btn-primary text-white py-3 rounded-lg font-semibold shadow-lg">
+            <i class="fas fa-paper-plane ml-2"></i>
+            إرسال طلب الحجز
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+      <div class="modal-content text-center">
+        <div class="mb-6">
+          <i class="fas fa-check-circle text-success text-6xl mb-4"></i>
+          <h3 class="text-2xl font-bold text-gray-800 mb-2">تم إرسال طلبك بنجاح!</h3>
+          <p class="text-gray-600">سيتم التواصل معك قريباً لتأكيد الموعد</p>
+        </div>
+        <button onclick="closeModal('successModal')" class="btn-primary text-white px-6 py-3 rounded-lg font-semibold">
+          حسناً
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const APP_ID = 'cmel82l6s03t26l7g6fqhsx2j';
+      const API_BASE = '/api/' + APP_ID;
+      
+      // Set current year in footer
+      document.querySelector('[data-year]').textContent = new Date().getFullYear();
+      
+     // Mobile menu toggle
+     function toggleMobileMenu() {
+       const menu = document.getElementById('mobileMenu');
+       if (menu) {
+         menu.classList.toggle('hidden');
+       } else {
+         console.error('Mobile menu element not found');
+       }
+     }
+      
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+          // Close mobile menu if open
+          document.getElementById('mobileMenu').classList.add('hidden');
+        });
+      });
+      
+      // FAQ toggle
+      function toggleFAQ(num) {
+        const faq = document.getElementById(`faq${num}`);
+        const button = document.querySelector(`#faq${num}`).previousElementSibling; // Get the button element
+        const icon = button.querySelector('i'); // Get the icon within the button
+        
+        faq.classList.toggle('hidden');
+        if (icon) {
+          icon.classList.toggle('fa-chevron-down');
+          icon.classList.toggle('fa-chevron-up');
+        }
+      }
+      
+      // Modal functions
+      function showAppointmentModal() {
+        document.getElementById('appointmentModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('show');
+        document.body.style.overflow = 'auto';
+      }
+      
+      // Close modal on backdrop click
+      document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeModal(modal.id);
+          }
+        });
+      });
+
+      // Form submission handling (for both main and modal forms)
+      document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // In a real application, you would send this data to a server
+        // For now, we'll just show the success modal
+        closeModal('appointmentModal'); // Close the main form modal if open
+        showSuccessModal();
+      });
+
+      document.getElementById('modalAppointmentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // In a real application, you would send this data to a server
+        // For now, we'll just show the success modal
+        closeModal('appointmentModal'); // Close the modal form
+        showSuccessModal();
+      });
+
+      function showSuccessModal() {
+        document.getElementById('successModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+
+    </script>
+  </body>
+</html>
+
