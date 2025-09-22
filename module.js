@@ -1,17 +1,52 @@
 // Module factory function that accepts APP_ID as parameter
 module.exports = function createAppModule(APP_ID) {
-  const express = require('express');
-  const path = require('path');
-  const fs = require('fs');
-  const { PrismaClient } = require('@prisma/client');
+ const express = require('express');
+ const path = require('path');
+ const fs = require('fs');
+ const { PrismaClient } = require('@prisma/client');
+ const { createServer } = require('http');
+ const { Server } = require('socket.io');
 
   const app = express();
   const prisma = new PrismaClient();
 
-  // ===== SMART ROUTING DETECTION =====
-  // Detect if running standalone (server.js) or embedded (parent server)
-  const IS_EMBEDDED = global.PARENT_SERVER_MODE || process.env.EMBEDDED_MODE;
-  const API_BASE = IS_EMBEDDED ? `/api/${APP_ID}` : '';
+ // ===== SMART ROUTING DETECTION =====
+ // Detect if running standalone (server.js) or embedded (parent server)
+ const IS_EMBEDDED = global.PARENT_SERVER_MODE || process.env.EMBEDDED_MODE;
+ const API_BASE = IS_EMBEDDED ? `/api/${APP_ID}` : '';
+  
+ // ===== SOCKET.IO SETUP =====
+ let appSocket = null;
+  
+ // Socket.IO setup function
+ function attachSocketNamespace(namespace) {
+   appSocket = namespace;
+    
+   // Clear any existing listeners to prevent duplicates when module reloads
+   appSocket.removeAllListeners('connection');
+    
+   appSocket.on('connection', (socket) => {
+     console.log(`🔌 Client connected to app ${APP_ID}: ${socket.id}`);
+      
+     // Clear any existing listeners on this socket (safety measure)
+     socket.removeAllListeners('chat_message');
+     socket.removeAllListeners('disconnect');
+      
+     // Handle chat messages
+     socket.on('chat_message', (data) => {
+       console.log('📥 Chat message received:', data);
+       // Broadcast to all clients
+       appSocket.emit('chat_message', data);
+     });
+      
+     socket.on('disconnect', () => {
+       console.log(`🔌 Client disconnected from app ${APP_ID}: ${socket.id}`);
+     });
+   });
+ }
+  
+ // Export the attach function
+ app.attachSocketNamespace = attachSocketNamespace;
 
   // ===== BASIC MIDDLEWARE =====
   app.use(express.json());

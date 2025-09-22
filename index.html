@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>عيادة تقويم النطق - أ. وفاق وهبي</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+ <script src="https://cdn.tailwindcss.com"></script>
+ <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -26,32 +27,206 @@
         }
       }
     </script>
-    <style>
-      body { font-family: 'Cairo', sans-serif; }
-      .hero-gradient { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); }
-      .card-hover { transition: all 0.3s ease; }
-      .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-      .fade-in { animation: fadeIn 0.6s ease-in; }
-      @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-      .parallax { background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; }
-      .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
-      .modal.show { display: flex; align-items: center; justify-content: center; }
-      .modal-content { background: white; padding: 2rem; border-radius: 1rem; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
-      .btn-primary { background: linear-gradient(135deg, #2563eb, #7c3aed); transition: all 0.3s ease; }
-      .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3); }
-      .service-icon { background: linear-gradient(135deg, #06b6d4, #2563eb); }
-      .appointment-form { background: linear-gradient(135deg, #f8fafc, #e2e8f0); }
-    </style>
+   <style>
+     body { font-family: 'Cairo', sans-serif; }
+     .hero-gradient { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%); }
+     .card-hover { transition: all 0.3s ease; }
+     .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+     .fade-in { animation: fadeIn 0.6s ease-in; }
+     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+     .parallax { background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; }
+     .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+     .modal.show { display: flex; align-items: center; justify-content: center; }
+     .modal-content { background: white; padding: 2rem; border-radius: 1rem; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
+     .btn-primary { background: linear-gradient(135deg, #2563eb, #7c3aed); transition: all 0.3s ease; }
+     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3); }
+     .service-icon { background: linear-gradient(135deg, #06b6d4, #2563eb); }
+     .appointment-form { background: linear-gradient(135deg, #f8fafc, #e2e8f0); }
+      
+    /* Enhanced Chatbot styles */
+    .chatbot-container {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 1000;
+      direction: ltr;
+    }
+      
+    .chatbot-toggle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 3px solid white;
+      animation: pulse 2s infinite;
+    }
+      
+    .chatbot-toggle:hover {
+      transform: scale(1.15);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+      animation: none;
+    }
+      
+    .chatbot-toggle:active {
+      transform: scale(1.05);
+    }
+      
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 12px rgba(37, 99, 235, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+      }
+    }
+      
+     .chatbot-window {
+       position: absolute;
+       bottom: 70px;
+       left: 0;
+       width: 350px;
+       height: 500px;
+       background: white;
+       border-radius: 12px;
+       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+       display: flex;
+       flex-direction: column;
+       overflow: hidden;
+       transform: translateY(20px);
+       opacity: 0;
+       visibility: hidden;
+       transition: all 0.3s ease;
+     }
+      
+     .chatbot-window.active {
+       transform: translateY(0);
+       opacity: 1;
+       visibility: visible;
+     }
+      
+     .chat-header {
+       background: linear-gradient(135deg, #2563eb, #7c3aed);
+       color: white;
+       padding: 16px;
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+     }
+      
+     .chat-messages {
+       flex: 1;
+       padding: 16px;
+       overflow-y: auto;
+       display: flex;
+       flex-direction: column;
+       gap: 12px;
+     }
+      
+     .message {
+       max-width: 80%;
+       padding: 12px 16px;
+       border-radius: 18px;
+       font-size: 14px;
+       line-height: 1.5;
+     }
+      
+     .user-message {
+       align-self: flex-end;
+       background: #2563eb;
+       color: white;
+       border-bottom-right-radius: 4px;
+     }
+      
+     .bot-message {
+       align-self: flex-start;
+       background: #f1f5f9;
+       color: #334155;
+       border-bottom-left-radius: 4px;
+     }
+      
+     .chat-input {
+       display: flex;
+       padding: 12px;
+       background: #f8fafc;
+       border-top: 1px solid #e2e8f0;
+     }
+      
+     .chat-input input {
+       flex: 1;
+       padding: 12px 16px;
+       border: 1px solid #e2e8f0;
+       border-radius: 24px;
+       outline: none;
+       font-size: 14px;
+       direction: rtl;
+     }
+      
+     .chat-input button {
+       background: #2563eb;
+       color: white;
+       border: none;
+       border-radius: 50%;
+       width: 40px;
+       height: 40px;
+       margin-right: 8px;
+       cursor: pointer;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+     }
+      
+     .typing-indicator {
+       display: flex;
+       align-items: center;
+       padding: 12px 16px;
+       background: #f1f5f9;
+       border-radius: 18px;
+       align-self: flex-start;
+       width: 80px;
+     }
+      
+     .typing-dot {
+       width: 8px;
+       height: 8px;
+       background: #94a3b8;
+       border-radius: 50%;
+       margin: 0 2px;
+       animation: typing 1.4s infinite ease-in-out;
+     }
+      
+     .typing-dot:nth-child(2) {
+       animation-delay: 0.2s;
+     }
+      
+     .typing-dot:nth-child(3) {
+       animation-delay: 0.4s;
+     }
+      
+     @keyframes typing {
+       0%, 60%, 100% { transform: translateY(0); }
+       30% { transform: translateY(-5px); }
+     }
+   </style>
   </head>
   <body class="bg-gray-50 font-arabic">
     <!-- Navigation -->
     <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
       <div class="container mx-auto px-4">
         <div class="flex justify-between items-center py-4">
-        <div class="flex items-center space-x-3 space-x-reverse">
-         <div class="bg-gradient-to-r from-primary to-secondary w-12 h-12 rounded-lg flex items-center justify-center">
-           <i class="fas fa-comments text-white text-2xl"></i>
-         </div>
+       <div class="flex items-center space-x-3 space-x-reverse">
+       <div class="bg-gradient-to-r from-primary to-secondary w-16 h-16 rounded-xl flex items-center justify-center shadow-lg">
+         <i class="fas fa-comments text-white text-4xl"></i>
+       </div>
           <div>
             <h1 class="text-xl font-bold text-gray-800">عيادة تقويم النطق</h1>
           <p class="text-gray-600 text-sm">أ. وفاق وهبي - أخصائية تقويم النطق</p>
@@ -438,15 +613,53 @@
      </div>
    </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
+   <!-- Chatbot -->
+   <div id="chatbotApp">
+     <div class="chatbot-container">
+  <div class="chatbot-toggle" @click="toggleChat">
+    <i class="fas fa-comment-dots text-4xl"></i>
+  </div>
+       <div class="chatbot-window" :class="{ active: isOpen }">
+         <div class="chat-header">
+           <div class="flex items-center">
+             <i class="fas fa-robot mr-2"></i>
+             <span>المساعد الذكي</span>
+           </div>
+           <button @click="toggleChat" class="text-white">
+             <i class="fas fa-times"></i>
+           </button>
+         </div>
+         <div class="chat-messages" ref="messagesContainer">
+           <div v-for="(message, index) in messages" :key="index" 
+                :class="['message', message.sender === 'user' ? 'user-message' : 'bot-message']">
+             {{ message.text }}
+           </div>
+           <div v-if="isTyping" class="typing-indicator">
+             <div class="typing-dot"></div>
+             <div class="typing-dot"></div>
+             <div class="typing-dot"></div>
+           </div>
+         </div>
+         <div class="chat-input">
+           <input type="text" v-model="userInput" @keyup.enter="sendMessage" 
+                  placeholder="اكتب رسالتك..." :disabled="isTyping">
+           <button @click="sendMessage" :disabled="isTyping || !userInput.trim()">
+             <i class="fas fa-paper-plane"></i>
+           </button>
+         </div>
+       </div>
+     </div>
+   </div>
+    
+   <!-- Footer -->
+   <footer class="bg-gray-800 text-white py-12">
       <div class="container mx-auto px-4">
         <div class="grid md:grid-cols-3 gap-8">
           <div>
         <div class="flex items-center space-x-4 space-x-reverse mb-6">
-             <div class="service-icon w-20 h-20 rounded-full flex items-center justify-center">
-           <i class="fas fa-comments text-white text-3xl"></i>
-         </div>
+           <div class="service-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+         <i class="fas fa-comments text-white text-3xl"></i>
+       </div>
             <div>
               <h3 class="text-2xl font-bold">عيادة تقويم النطق</h3>
            <p class="text-gray-400 mt-1">الأخصائية في تقويم النطق وفاق وهبي</p>
@@ -756,7 +969,130 @@
         observer.observe(el);
       });
       
-      console.log('🚀 عيادة العلاج النطقي - د. وفاق وهبي initialized with ID:', APP_ID);
-    </script>
-  </body>
+     // Initialize Vue chatbot
+     const { createApp, ref, onMounted, nextTick } = Vue;
+      
+     const chatbotApp = createApp({
+       setup() {
+         const isOpen = ref(false);
+         const userInput = ref('');
+         const messages = ref([
+           { text: 'مرحباً! أنا المساعد الذكي لعيادة تقويم النطق. كيف يمكنني مساعدتك اليوم؟', sender: 'bot' }
+         ]);
+         const isTyping = ref(false);
+         const messagesContainer = ref(null);
+          
+         // Common questions and responses
+         const responses = {
+           'الخدمات': 'نقدم خدمات تقويم النطق للأطفال والبالغين بما في ذلك علاج تأخر النطق، تقويم اضطرابات اللغة، تقويم اضطرابات البلع، تأهيل ضعاف السمع، وإضطرابات طيف التوحد. يمكنك معرفة المزيد في قسم الخدمات.',
+           'الاوقات': 'أوقات العمل من الاثنين إلى الجمعة من 9 صباحاً حتى 5 مساءً. السبت من 9 صباحاً حتى 1 ظهراً.',
+           'العنوان': 'موقعنا في 187 شارع حسين داي، العقبة، تونس. يمكنك رؤية موقعنا على الخريطة في قسم تواصل معنا.',
+           'الحجز': 'يمكنك حجز موعد من خلال الضغط على زر "احجز موعدك الآن" في الصفحة الرئيسية أو الاتصال بنا مباشرة على الرقم 20524822 أو عبر الواتساب على الرقم 20524822.',
+           'الدكتورة': 'د. وفاق وهبي أخصائية تقويم النطق المعتمدة بخبرة 6 سنوات في مجال تقويم النطق والتأهيل. يمكنك معرفة المزيد في قسم عن الدكتورة.',
+           'الأسعار': 'الأسعار تختلف حسب نوع الخدمة ومدة الجلسة. يرجى الاتصال بنا مباشرة على الرقم 20524822 أو عبر الواتساب على الرقم 20524822 للحصول على معلومات التسعير.',
+           'التأمين': 'نقبل التأمين الصحي من مختلف شركات التأمين المعتمدة في تونس.',
+           'الاتصال': 'يمكنك الاتصال بنا مباشرة على الرقم 20524822 أو عبر الواتساب على الرقم 20524822. كما يمكنك إرسال بريد إلكتروني إلى wifekwahbi@gmail.com.',
+           'البريد': 'بريدنا الإلكتروني هو wifekwahbi@gmail.com. يمكنك إرسال استفساراتك إلينا عبر هذا البريد.',
+           'default': 'شكراً لسؤالك! يمكنك الاتصال بنا مباشرة على الرقم 20524822 أو عبر الواتساب على الرقم 20524822 للحصول على معلومات أكثر تفصيلاً أو حجز موعد للاستشارة. كما يمكنك إرسال بريد إلكتروني إلى wifekwahbi@gmail.com.'
+         };
+          
+         const toggleChat = () => {
+           isOpen.value = !isOpen.value;
+           if (isOpen.value) {
+             setTimeout(() => {
+               scrollToBottom();
+             }, 100);
+           }
+         };
+          
+         const sendMessage = async () => {
+           if (!userInput.value.trim() || isTyping.value) return;
+            
+           // Add user message
+           messages.value.push({
+             text: userInput.value,
+             sender: 'user'
+           });
+            
+           const userMessage = userInput.value.trim().toLowerCase();
+           userInput.value = '';
+            
+           // Show typing indicator
+           isTyping.value = true;
+           scrollToBottom();
+            
+           // Simulate bot thinking
+           setTimeout(() => {
+             isTyping.value = false;
+              
+             // Find appropriate response
+             let botResponse = responses.default;
+              
+             if (userMessage.includes('خدم') || userMessage.includes('العلاج')) {
+               botResponse = responses.الخدمات;
+             } else if (userMessage.includes('وقت') || userMessage.includes('ساع') || userMessage.includes('موعد')) {
+               botResponse = responses.الاوقات;
+             } else if (userMessage.includes('مكان') || userMessage.includes('عنوان') || userMessage.includes('الموقع')) {
+               botResponse = responses.العنوان;
+             } else if (userMessage.includes('حجز') || userMessage.includes('موعد') || userMessage.includes('استشارة')) {
+               botResponse = responses.الحجز;
+             } else if (userMessage.includes('دكتور') || userMessage.includes('واق') || userMessage.includes('الدكتورة')) {
+               botResponse = responses.الدكتورة;
+             } else if (userMessage.includes('سعر') || userMessage.includes('تكلفة') || userMessage.includes('دفع')) {
+               botResponse = responses.الأسعار;
+             } else if (userMessage.includes('تامين') || userMessage.includes('تأمين') || userMessage.includes('ضمان')) {
+               botResponse = responses.التأمين;
+             } else if (userMessage.includes('اتصال') || userMessage.includes('هاتف') || userMessage.includes('رقم')) {
+               botResponse = responses.الاتصال;
+             } else if (userMessage.includes('بريد') || userMessage.includes('ايميل') || userMessage.includes('email')) {
+               botResponse = responses.البريد;
+             }
+              
+             // Add bot response
+             messages.value.push({
+               text: botResponse,
+               sender: 'bot'
+             });
+              
+             scrollToBottom();
+           }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+         };
+          
+         const scrollToBottom = () => {
+           nextTick(() => {
+             if (messagesContainer.value) {
+               messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
+             }
+           });
+         };
+          
+         // Close chat when clicking outside
+         const handleClickOutside = (event) => {
+           const chatbotContainer = document.querySelector('.chatbot-container');
+           if (isOpen.value && chatbotContainer && !chatbotContainer.contains(event.target)) {
+             isOpen.value = false;
+           }
+         };
+          
+         onMounted(() => {
+           document.addEventListener('click', handleClickOutside);
+         });
+          
+         return {
+           isOpen,
+           userInput,
+           messages,
+           isTyping,
+           messagesContainer,
+           toggleChat,
+           sendMessage
+         };
+       }
+     });
+      
+     chatbotApp.mount('#chatbotApp');
+      
+     console.log('🚀 عيادة العلاج النطقي - د. وفاق وهبي initialized with ID:', APP_ID);
+   </script>
+ </body>
 </html>
